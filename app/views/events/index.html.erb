@@ -1,0 +1,7 @@
+<%@events.each do |event|%>
+  Name: <%=event.name%><br>
+  Description: <%=event.description%><br>
+  Price: <%=event.price%><br>
+  Category: <%=event.event_category.name%><br>
+  <%=link_to 'See Details', event_path(event)%>
+<%end%>

@@ -1,0 +1,16 @@
+<%@cart_events_with_qty.each do |array|%>
+  <%product = array[0]%>
+  <%qty = array[1]%>
+  Name: <%=product.name%><br>
+  Price: <%=product.price%><br>
+  Category: <%=qty%><br>
+  Total: <%=@cart_total%><br>
+  <%=link_to '+', add_to_cart_path(product), method: :put, class: "btn"%>
+  <%=link_to '-', remove_one_cart_path(product), method: :put, class: "btn"%>
+  <%=link_to 'Remove', remove_from_cart_path(product), method: :put, class: "btn btn-danger"%>
+<%end%>
+
+<%if
+@cart_events_with_qty.empty?%>
+  <%=link_to 'Go to events page', events_path%>
+<%end%>
