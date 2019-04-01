@@ -1,12 +1,3 @@
-<%@events.each do |event|%>
-  Name: <%=event.name%><br>
-  Description: <%=event.description%><br>
-  Price: <%=event.price%><br>
-  Category: <%=event.event_category.name%><br>
-  <%=link_to 'See Details', event_path(event)%><br>
-<%end%>
-
-
 <div class="container">
     <h3 class="h3">Featured Events</h3>
     <div class="row">
@@ -29,7 +20,6 @@
                         <%=event.name%>
                       <% end %>
                     </h3>
-                    <p><%=event.description%></p>
                     <span class="price">UGX <%=event.price%></span>
                 </div>
             </div>
