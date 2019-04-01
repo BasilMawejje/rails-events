@@ -1,75 +1,71 @@
-<%@cart_events_with_qty.each do |array|%>
-  <%product = array[0]%>
-  <%qty = array[1]%>
-  Name: <%=product.name%><br>
-  Price: <%=product.price%><br>
-  Category: <%=qty%><br>
-  Total: <%=@cart_total%><br>
-  <%=link_to '+', add_to_cart_path(product), method: :put, class: "btn"%>
-  <%=link_to '-', remove_one_cart_path(product), method: :put, class: "btn"%>
-  <%=link_to 'Remove', remove_from_cart_path(product), method: :put, class: "btn btn-danger"%>
-<%end%>
-
-<%if
-@cart_events_with_qty.empty?%>
-  <%=link_to 'Go to events page', events_path%>
-<%end%>
-
-
-
 <div class="container">
    <div class="card shopping-cart">
-            <div class="card-header bg-dark text-light">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                Shipping cart
-                <a href="" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
-                <div class="clearfix"></div>
+      <div class="card-header bg-dark text-light">
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+          Shopping cart
+          <a href="" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
+          <div class="clearfix"></div>
+      </div>
+      <div class="p1 glassy-bg mb1 text-center radius-l1 radius-r1">
+        <h4>My Cart</h4>
+        <p class="mb0"> You've selected <span class="cart-count"><%=current_user.cart_count%></span> tickets!</p>
+      </div>
+      <div class="card-body">
+        <!-- PRODUCT -->
+        <div class="row">
+          <%@cart_events_with_qty.each do |array|%>
+            <%product = array[0]%>
+            <%qty = array[1]%>
+            <div class="col-12 col-sm-12 col-md-2 text-center">
+                    <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
             </div>
-            <div class="card-body">
-                    <!-- PRODUCT -->
-                    <div class="row">
-                      <%@cart_events_with_qty.each do |array|%>
-                        <%product = array[0]%>
-                        <%qty = array[1]%>
-                        <div class="col-12 col-sm-12 col-md-2 text-center">
-                                <img class="img-responsive" src="http://placehold.it/120x80" alt="prewiew" width="120" height="80">
-                        </div>
-                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                            <h4 class="product-name"><strong><%=product.name%></strong></h4>
-                            <h4>
-                                <small><%=product.description%></small>
-                            </h4>
-                        </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong><%=product.price%><span class="text-muted">x</span></strong></h6>
-                            </div>
-                            <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
-                                    <input type="button" value="+" class="plus">
-                                    <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
-                                           size="4">
-                                    <input type="button" value="-" class="minus">
-                                </div>
-                            </div>
-                            <div class="col-2 col-sm-2 col-md-2 text-right">
-                                <%=link_to remove_from_cart_path(product), class: "btn btn-outline-danger btn-xs", method: :put do %>
-                                  <i class="fa fa-trash" aria-hidden="true"></i>
-                                <%end%>
-                            </div>
-                        </div>
+            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                <h4 class="product-name"><strong><%=product.name%></strong></h4>
+                <h4>
+                    <small><%=product.description%></small>
+                </h4>
+            </div>
+            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+              <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                  <h6><strong><%=product.price%><span class="text-muted">x</span></strong></h6>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4">
+                <div class="quantity">
+                  <input type="button" value="+" class="plus">
+                  <input type="number" step="1" max="2" min="1" value="<%=qty%>" title="Qty" class="qty"
+                         size="4">
+
+                    <% if qty.to_i >= 0 && qty.to_i <=1 %>
+                      <%=link_to add_to_cart_path(product), method: :put do %>
+                        <input type="button" value="+" class="plus">
                       <% end %>
-                    </div>
-                    <hr>
-                    <!-- END PRODUCT -->
-            </div>
-            <div class="card-footer">
-                <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Checkout</a>
-                    <div class="pull-right" style="margin: 5px">
-                        Total price: <b><%=@cart_total%></b>
-                    </div>
+                    <% end %>
+
+                    <% if qty.to_i >= 2 %>
+                      <%=link_to remove_one_cart_path(product), method: :put do %>
+                        <input type="button" value="-" class="minus">
+                      <% end %>
+                    <% end %>
                 </div>
+              </div>
+              <div class="col-2 col-sm-2 col-md-2 text-right">
+                  <%=link_to remove_from_cart_path(product), class: "btn btn-outline-danger btn-xs", method: :put do %>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  <%end%>
+              </div>
             </div>
+          <% end %>
         </div>
+        <hr>
+        <!-- END PRODUCT -->
+        </div>
+        <div class="card-footer">
+          <div class="pull-right" style="margin: 10px">
+            <a href="" class="btn btn-success pull-right">Checkout</a>
+            <div class="pull-right" style="margin: 5px">
+                Total price: <b><%=@cart_total%></b>
+            </div>
+          </div>
+        </div>
+    </div>
 </div>
