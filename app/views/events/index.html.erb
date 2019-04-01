@@ -3,5 +3,38 @@
   Description: <%=event.description%><br>
   Price: <%=event.price%><br>
   Category: <%=event.event_category.name%><br>
-  <%=link_to 'See Details', event_path(event)%>
+  <%=link_to 'See Details', event_path(event)%><br>
 <%end%>
+
+
+<div class="container">
+    <h3 class="h3">Featured Events</h3>
+    <div class="row">
+      <% @events.each do |event| %>
+        <div class="col-md-3 col-sm-6">
+            <div class="product-grid2">
+                <div class="product-image2">
+                    <a href="#">
+                        <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-1.jpeg">
+                        <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-2.jpeg">
+                    </a>
+                    <ul class="social">
+                        <li><a href="<%=event_path(event)%>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                    </ul>
+                    <%=link_to 'Add to Cart', add_to_cart_path(event), method: :put, class: "add-to-cart"%>
+                </div>
+                <div class="product-content">
+                    <h3 class="title">
+                      <%=link_to event_path(event) do %>
+                        <%=event.name%>
+                      <% end %>
+                    </h3>
+                    <p><%=event.description%></p>
+                    <span class="price">UGX <%=event.price%></span>
+                </div>
+            </div>
+        </div>
+      <% end %>
+    </div>
+</div>
+<hr>
