@@ -1,12 +1,12 @@
 <div class="container">
-    <h3 class="h3">Find out what's happening in Kampala</h3>
+    <h3 class="h3 event-show">Find out what's happening in Kampala</h3>
     <div class="row">
       <div class="col-md-4 col-sm-6">
         <div class="product-grid2">
             <div class="product-image2">
                 <a href="#">
-                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-1.jpeg">
-                    <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo3/images/img-2.jpeg">
+                  <%= image_tag(@event.image.to_s, class: "pic-1", style: "height: 400px") %>
+                  <%= image_tag(@event.alternate_image.to_s, class: "pic-2", style: "height: 400px") %>
                 </a>
                 <%=link_to 'Add to Cart', add_to_cart_path(@event), method: :put, class: "add-to-cart"%>
             </div>
@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="col-md-8 col-sm-6">
-        <h3 class="title"><%=@event.name%></h3>
-        <%=@event.description%>
+        <h3 class="event-show"><%=@event.name%></h3>
+        <p class="event-show"><%=@event.description%></p>
       </div>
     </div>
 </div>

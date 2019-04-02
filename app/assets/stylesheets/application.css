@@ -15,7 +15,10 @@
  */
 
 body {
-  background-image: url(background-image.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
+  font-family: "Poppins", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 2;
+  color: gray;
+  background: whitesmoke;
 }
