@@ -32,6 +32,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'redis'
 gem 'hiredis'
+gem 'carrierwave'
+gem 'activeadmin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
