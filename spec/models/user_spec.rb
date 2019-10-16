@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
     it {is_expected.to have_db_column :encrypted_password}
   end
 
-  context `validations` do
+  context 'validations' do
     it {is_expected.to have_many(:orders)}
     it { should have_many(:events).through(:orders) }
   end
