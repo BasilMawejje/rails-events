@@ -19,6 +19,7 @@ RSpec.describe Event, type: :model do
   end
 
   context 'validations' do
+    it { should have_many(:orders) }
     it { should have_many(:users).through(:orders) }
   end
 end

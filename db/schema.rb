@@ -60,12 +60,12 @@ ActiveRecord::Schema.define(version: 2019_04_02_072325) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "product_id"
+    t.integer "event_id"
     t.integer "user_id"
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id", "user_id"], name: "index_orders_on_product_id_and_user_id"
+    t.index ["event_id", "user_id"], name: "index_orders_on_event_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|
