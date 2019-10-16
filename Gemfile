@@ -35,6 +35,7 @@ gem 'hiredis'
 gem 'carrierwave'
 gem 'activeadmin'
 gem 'stripe'
+gem 'sidekiq'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
