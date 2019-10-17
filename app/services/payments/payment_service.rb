@@ -1,4 +1,4 @@
-class PaymentService < ApplicationService
+class Payments::PaymentService < ApplicationService
   DEFAULT_CURRENCY = 'usd'.freeze
 
   def initialize(params, user)

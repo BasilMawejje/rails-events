@@ -5,7 +5,7 @@ class ChargesController < ApplicationController
   def create
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
 
-    PaymentService.new(charge_params, current_user).call
+    Payments::PaymentService.new(charge_params, current_user).call
     OrderMailerWorker.perform_async(current_user.email)
     redirect_to root_path
   end
