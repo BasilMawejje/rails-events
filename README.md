@@ -36,7 +36,7 @@ To install:
 
 #### Rails
 
-This applications uses the one of the latest versions of rails. You will need to upgrade if you don't already have it istalled. The rails version being used is `rails 5.2.1`.
+This applications uses the one of the latest versions of rails. You will need to upgrade if you don't already have it istalled. The rails version being used is `rails 5.2.3`.
 
 To install:
 
