@@ -4,7 +4,6 @@ class Payments::PaymentService < ApplicationService
   def initialize(params, user)
     @stripe_email = params[:stripeEmail]
     @stripe_token = params[:stripeToken]
-    @cart = user.get_cart_events_with_qty
     @user = user
   end
 
@@ -14,7 +13,7 @@ class Payments::PaymentService < ApplicationService
 
   private
 
-  attr_accessor :user, :stripe_email, :stripe_token, :cart
+  attr_accessor :user, :stripe_email, :stripe_token
 
   def create_customer
     customer = Stripe::Customer.create(

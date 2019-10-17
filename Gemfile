@@ -36,6 +36,7 @@ gem 'carrierwave'
 gem 'activeadmin'
 gem 'stripe'
 gem 'sidekiq'
+gem 'stripe-ruby-mock', '~> 2.5.8', :require => 'stripe_mock'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
