@@ -79,6 +79,11 @@ To get up and running with the project locally, follow the following steps.
 
         foreman start
 
+* Start the rails server
+
+        rails s
+
+
 * To seed the application with data then run(ensure that **redis** and **sidekiq** are up and running);
 
         rake db:seed

@@ -44,9 +44,6 @@ class User < ApplicationRecord
   end
 
   def purchase_cart_events!
-    get_cart_events_with_qty.each do |event, qty|
-      self.orders.create(user: self, event: event, quantity: qty)
-    end
     $redis.del current_user_cart
   end
 end
