@@ -12,7 +12,7 @@ class User < ApplicationRecord
   end
 
   def cart_expire_time
-    $redis.expire(current_user_cart, 10)
+    $redis.expire(current_user_cart, 1800)
   end
 
   def add_to_cart(event_id)
