@@ -16,7 +16,7 @@ end
 25.times do
   Event.create({
                 name: Faker::Name.name,
-                description: Faker::FamilyGuy.quote,
+                description: Faker::Lorem.paragraph(sentence_count: 2),
                 price: 100,
                 image: 'http://placehold.it/100x100',
                 alternate_image: 'http://placehold.it/100x100',

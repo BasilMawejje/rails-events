@@ -11,8 +11,13 @@ class User < ApplicationRecord
     "cart#{id}"
   end
 
+  def cart_expire_time
+    $redis.expire(current_user_cart, 10)
+  end
+
   def add_to_cart(event_id)
     $redis.hincrby current_user_cart, event_id, 1
+    cart_expire_time
   end
 
   def remove_from_cart(event_id)

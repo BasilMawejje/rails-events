@@ -25,9 +25,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'faker'
+  gem 'pry'
+  gem 'pry-byebug'
+  gem 'dotenv-rails'
+  gem 'foreman'
 end
 
-group :development, :test do
+group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
@@ -35,16 +40,11 @@ group :development, :test do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'faker'
-  gem 'dotenv-rails'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
   gem 'factory_bot_rails'
-  gem 'pry'
-  gem 'pry-byebug'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'foreman'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
