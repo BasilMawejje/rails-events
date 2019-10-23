@@ -62,12 +62,16 @@
         </div>
         <div class="card-footer">
           <div class="pull-right" style="margin: 10px">
-            <%= form_tag charges_path do %>
-              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-description="What's happening Kampala"
-                      data-amount=@cart_total
-                      data-locale="auto"></script>
+            <% if @cart_total > 0 %>
+              <%= form_tag charges_path do %>
+                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                        data-description="What's happening Kampala"
+                        data-amount=@cart_total
+                        data-locale="auto"></script>
+              <% end %>
+            <% else %>
+              <button type="button" class="btn btn-secondary" disabled>Add item to cart first</button>
             <% end %>
             <div class="pull-right" style="margin: 5px">
                 Total price: <b><%=@cart_total%></b>
