@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    @events = Event.order('name').page(params[:page]).per(15)
   end
 
   def show

@@ -2,7 +2,6 @@ class CartsController < ApplicationController
   before_action :authenticate_user!
 
  def show
-   # binding.pry
    @cart_events_with_qty = current_user.get_cart_events_with_qty
    @cart_total = 0
    @cart_events_with_qty.empty? ? @cart_total : @cart_total = current_user.cart_total_price
