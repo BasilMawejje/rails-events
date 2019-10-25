@@ -1,7 +1,7 @@
-Feature: add item from cart
+Feature: remove item from cart
   As a user
   In order to change my mind
-  I would like to add an event to the cart
+  I would like to remove an event to the cart
 
   Background:
     Given the following user exists
@@ -22,3 +22,5 @@ Feature: add item from cart
   Scenario: User clicks add item
     Then I should be on the cart page
     Then I should see "You've selected 1 tickets!"
+    And I click "remove from cart" icon
+    Then I should see "You've selected 0 tickets!"
