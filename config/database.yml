@@ -3,9 +3,6 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: postgres
-  host: postgres
-  port: 5432
 
 development:
   <<: *default
@@ -14,6 +11,7 @@ development:
 test:
   <<: *default
   database: rails-events_test
+  host: localhost
 
 production:
   <<: *default
