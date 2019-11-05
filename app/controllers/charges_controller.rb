@@ -7,8 +7,8 @@ class ChargesController < ApplicationController
 
     Payments::PaymentService.new(charge_params, current_user).call
     OrderMailerWorker.perform_async(current_user.email)
-    current_user.purchase_cart_events!
-    redirect_to root_path
+    # current_user.purchase_cart_events!
+    redirect_to order_path
   end
 
   private

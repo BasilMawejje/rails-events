@@ -13,4 +13,5 @@ Rails.application.routes.draw do
     put 'remove_one/:event_id', to: 'carts#removeone', as: :remove_one
   end
   resource :charges, only: [:new, :create]
+  resource :order, only: [:show]
 end
