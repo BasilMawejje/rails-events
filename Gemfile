@@ -46,6 +46,7 @@ group :test do
   gem 'database_cleaner'
   gem 'stripe-ruby-mock', '~> 2.5.8', :require => 'stripe_mock'
   gem 'launchy'
+  gem 'pdf-inspector'
 end
 
 gem 'tzinfo-data'
