@@ -12,7 +12,8 @@ RSpec.describe OrderMailer, :type => :mailer do
     end
 
     it "renders the body" do
-      expect(mail.body.raw_source).to include("You have successfully booked a ticket.")
+      expect(mail.subject).to include("You're ticket has been booked.")
+      expect(mail.attachments).not_to be_empty
     end
   end
 end
