@@ -37,6 +37,7 @@ class OrderPdf < Prawn::Document
 
   def total_price
     move_down 15
-    text "Total price: #{price(@order.map{|prod_price| prod_price[0].price}.reduce(:+))}", size: 16, style: :bold
+    total_price = @order.map { |event, qty| event.price * qty.to_i }.reduce(:+)
+    text "Total price: #{price(total_price)}", size: 16, style: :bold
   end
 end
