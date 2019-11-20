@@ -1,0 +1,55 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: website
+  name: website
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: website
+    spec:
+      containers:
+      - env:
+        - name: COMPOSE_PROJECT_NAME
+          value: rails-events
+        - name: DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL
+          value: "true"
+        - name: DATABASE_URL
+          value: postgres://postgres@postgres
+        - name: PUBLISHABLE_KEY
+          value: env['PUBLISHABLE_KEY']
+        - name: REDIS_URL
+          value: redis://redis:6379/0
+        - name: SECRET_KEY
+          value: env['SECRET_KEY']
+        - name: gmail_password
+          value: env['gmail_password']
+        - name: gmail_username
+          value: env['gmail_username']
+        image: basilmawejje/rails-events:v1
+        name: website
+        ports:
+        - containerPort: 3000
+        resources: {}
+        volumeMounts:
+        - mountPath: /app
+          name: website-claim0
+      restartPolicy: Always
+      volumes:
+      - name: website-claim0
+        persistentVolumeClaim:
+          claimName: website-claim0
+status: {}
