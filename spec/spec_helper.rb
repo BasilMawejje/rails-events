@@ -8,4 +8,12 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.before(:each) do
+    @stripe_test_helper = StripeMock.create_test_helper
+    StripeMock.start
+  end
+  config.after(:each) do
+    StripeMock.stop
+  end
 end
