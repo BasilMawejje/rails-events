@@ -1,13 +1,13 @@
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-5.times do
+10.times do
   EventCategory.create({
                            name: Faker::Name.name
                        })
 end
 
 EventCategory.all.each do |event_category|
-  15.times do
+  20.times do
     Event.create({
                     name: Faker::Name.name,
                     description: Faker::Lorem.paragraph(sentence_count: 2),
