@@ -12,4 +12,5 @@ COPY . .
 
 LABEL maintainer="Basil Mawejje <basil.mawejje@gmail.com>"
 
-CMD puma -C config/puma.rb
+EXPOSE 3000
+CMD ["rails", "server", "-b", "0.0.0.0"]
