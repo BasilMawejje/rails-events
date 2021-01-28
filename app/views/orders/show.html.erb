@@ -1,0 +1,17 @@
+<div class="row">
+  <%@order.each do |array|%>
+    <%product = array[0]%>
+    <%qty = array[1]%>
+    <div class="col-12 col-sm-12 col-md-2 text-center">
+      <%= image_tag "ticket.jpg", class: "img-responsive"%>
+    </div>
+    <div class="col-12">
+      <h4 class="product-name"><strong><%=product.name%></strong></h4>
+      <h6>
+        <small><%=product.description.truncate(200, omission: '... (continued)')%></small>
+      </h6>
+    </div>
+    <%end%>
+  </div>
+<%=link_to 'Printable Receipt (PDF)', order_path(@order, format: 'pdf') %><br>
+<%=link_to 'Go To Home', root_path %>
