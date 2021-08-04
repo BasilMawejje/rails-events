@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: postgres
+  host: 127.0.0.1
   username: postgres
   password:
   pool: 5
@@ -12,4 +12,6 @@ development:
 
 test:
   <<: *default
+  username: postgres
+  password: 
   database: rails-events_test

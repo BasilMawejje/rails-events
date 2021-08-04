@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe EventCategory, type: :model do
@@ -8,11 +10,11 @@ RSpec.describe EventCategory, type: :model do
   end
 
   describe 'DB table' do
-    it {is_expected.to have_db_column :id}
-    it {is_expected.to have_db_column :name}
+    it { is_expected.to have_db_column :id }
+    it { is_expected.to have_db_column :name }
   end
 
   context 'validations' do
-    it {is_expected.to have_many(:events)}
+    it { is_expected.to have_many(:events) }
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateOrders < ActiveRecord::Migration[5.1]
   def change
     create_table :orders do |t|
@@ -7,6 +9,6 @@ class CreateOrders < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :orders, [:event_id, :user_id]
+    add_index :orders, %i[event_id user_id]
   end
 end

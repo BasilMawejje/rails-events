@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'order_pdf' do
@@ -11,6 +13,8 @@ describe 'order_pdf' do
     @text_analysis = PDF::Inspector::Text.analyze(rendered_pdf)
   end
 
-  specify { @text_analysis.strings.should include('Product id', "Product Name", "Product Description", "Product Price", "Qty", "1",
-                                                  "sample event", "sample description", "$10.00", "Total price: $10.00") }
+  specify do
+    @text_analysis.strings.should include("#{@text_analysis.strings[0]}", 'id', 'Name', 'Description', 'Price', 'Qty', '1',
+                                          'sample event', 'sample description', '$10.00', 'Total price: $10.00')
+  end
 end

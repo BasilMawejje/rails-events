@@ -1,7 +1,9 @@
-Given("I navigate to the index page") do
+# frozen_string_literal: true
+
+Given('I navigate to the index page') do
   visit root_path
 end
 
-Then("I should see {string}") do |message|
+Then('I should see {string}') do |message|
   expect(page).to have_content message
 end
