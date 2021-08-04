@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Payments::PaymentService, type: :request do
   let(:headers) { { HTTP_ACCEPT: 'payment/json' } }
+  
   describe 'GET /charges' do
     before { StripeMock.start }
     after { StripeMock.stop }
@@ -16,10 +17,19 @@ RSpec.describe Payments::PaymentService, type: :request do
         )
       end
     end
+    
+    it 'creates a stripe customer' do
+      customer = Stripe::Customer.create(
+          :email => 'me@me.com',
+          :card => 'valid_card_token'
+      )
+      expect(customer.email).to eq('me@me.com')
+    end
   end
 
   describe 'POST /charges' do
     let(:stripe_helper) { StripeMock.create_test_helper }
+    
     before { StripeMock.start }
     after { StripeMock.stop }
     let!(:customer) do
@@ -28,6 +38,11 @@ RSpec.describe Payments::PaymentService, type: :request do
         card: stripe_helper.generate_card_token
       )
     end
+    
+    let!(:customer) {Stripe::Customer.create(
+        :email => 'me@me.com',
+        :card => stripe_helper.generate_card_token
+    )}
 
     it 'requires a valid card token' do
       expect do
