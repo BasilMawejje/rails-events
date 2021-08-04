@@ -14,7 +14,7 @@ describe 'order_pdf' do
   end
 
   specify do
-    @text_analysis.strings.should include('Product id', 'Product Name', 'Product Description', 'Product Price', 'Qty', '1',
+    @text_analysis.strings.should include("#{@text_analysis.strings[0]}", 'id', 'Name', 'Description', 'Price', 'Qty', '1',
                                           'sample event', 'sample description', '$10.00', 'Total price: $10.00')
   end
 end
