@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventCategoriesController < ApplicationController
   def show
     @category = EventCategory.find(params[:id])

@@ -1,10 +1,12 @@
-Given("the following user exists") do |table|
+# frozen_string_literal: true
+
+Given('the following user exists') do |table|
   table.hashes.each do |hash|
     @user = FactoryBot.create(:user, hash)
   end
 end
 
-Given("the following user is signed in") do |table|
+Given('the following user is signed in') do |table|
   table.hashes.each do |hash|
     @user = User.find_by(email: hash[:email])
     visit new_user_session_path
@@ -14,10 +16,10 @@ Given("the following user is signed in") do |table|
   end
 end
 
-Given("I click {string} link") do |button|
+Given('I click {string} link') do |_button|
   find(class: 'add-to-cart').click
 end
 
-Then("I should be on the cart page") do
+Then('I should be on the cart page') do
   visit cart_path
 end

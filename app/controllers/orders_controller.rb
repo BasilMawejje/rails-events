@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrdersController < ApplicationController
   def show
     @cart = current_user.current_user_cart
@@ -8,8 +10,8 @@ class OrdersController < ApplicationController
       format.pdf do
         pdf = OrderPdf.new(@order, view_context)
         send_data pdf.render, filename: "order-#{current_user.email}-#{DateTime.now}",
-                  type: 'application/pdf',
-                  disposition: 'inline'
+                              type: 'application/pdf',
+                              disposition: 'inline'
       end
       expire_paid_cart
     end

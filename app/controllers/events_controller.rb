@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
   def index
     @events = Event.order('name').page(params[:page]).per(15)
@@ -5,7 +7,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    category_events_count = -> (c) { EventCategory.all.select{|event_category| event_category.events.count > 10} }
+    category_events_count = ->(_c) { EventCategory.all.select { |event_category| event_category.events.count > 10 } }
     @popular_categories = EventCategory.all.map(&category_events_count).uniq.flatten.map(&:name)
   end
 end
