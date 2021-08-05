@@ -42,6 +42,23 @@ jobs:
           command: |
             bundle exec rspec --profile 10 \
                               --format progress
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: 'cimg/ruby:2.7-node'
+    steps:
+      - checkout
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python3-pip python3-dev build-essential
+            sudo pip3 install awsebcli
+
+      - run:
+          name: Deploying to EBS
+          command: eb deploy $CIRCLE_BRANCH-rails-events
 orbs:
   node: circleci/node@4.6.0
   ruby: circleci/ruby@1.1.4
@@ -54,3 +71,11 @@ workflows:
       - test:
           requires:
             - build
+  deploy_to_EBS:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - staging
+                - master
