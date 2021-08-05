@@ -2,8 +2,10 @@ branch-defaults:
   master:
     environment: $CIRCLE_BRANCH-rails-events
 global:
-  application_name: Rails Events
-  default_ec2_keyname: 
+  # custom env variable should be added to CircleCi config e.g $EC2_APP_NAME
+  # $CIRCLE_BRANCH env variable is given by default to CircleCi
+  application_name: $EC2_APP_NAME
+  default_ec2_keyname: $EC2_KEY_NAME
   default_platform: 64bit Amazon Linux 2017.09 v2.6.2 running Ruby 2.4 (Passenger Standalone)
   default_region: eu-west-1
   sc: git
