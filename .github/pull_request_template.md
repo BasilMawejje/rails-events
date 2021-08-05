@@ -12,3 +12,7 @@ Feel free to include screenshots or gifs if relevant.
 
 Include a brief overview of the technical process you took
 (or are going to take!) to get from the problem to the solution.
+
+## Assertion
+
+Works as expected
