@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-events-app
+spec:
+  selector:
+    matchLabels:
+      app: rails-events-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rails-events-app
+    spec:
+      containers:
+      - name: rails-events-app
+        image: basilmawejje/rails-events:v1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails-events-app
+spec:
+  selector:
+    app: rails-events-app
+  ports:
+    - name: http
+      port: 3000
+      nodePort: 30080
+  type: NodePort
