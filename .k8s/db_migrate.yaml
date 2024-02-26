@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: rails-events-db-migrate
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: migrate
+        command: ["/bin/sh"]
+        args:
+          - -c
+          - >-
+              rails db:create &&
+              rails db:migrate
+        image: basilmawejje/rails-events:v1
+        envFrom:
+        - configMapRef:
+            name: rails-events-config
