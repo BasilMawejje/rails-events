@@ -13,7 +13,8 @@ spec:
           - -c
           - >-
               rails db:create &&
-              rails db:migrate
+              rails db:migrate &&
+              rails db:seed
         image: basilmawejje/rails-events:v1
         envFrom:
         - configMapRef:
