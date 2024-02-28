@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-events-app
+spec:
+  selector:
+    matchLabels:
+      app: rails-events-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rails-events-app
+    spec:
+      containers:
+      - name: rails-events-app
+        image: basilmawejje/rails-events:v1
+        envFrom:
+        - configMapRef:
+            name: rails-events-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails-events-app
+spec:
+  selector:
+    app: rails-events-app
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
