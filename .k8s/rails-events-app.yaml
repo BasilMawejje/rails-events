@@ -13,11 +13,18 @@ spec:
         app: rails-events-app
     spec:
       containers:
-      - name: rails-events-app
-        image: basilmawejje/rails-events:v1
-        envFrom:
-        - configMapRef:
-            name: rails-events-config
+        - name: rails-events-app
+          image: basilmawejje/rails-events:v1
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 100m
+            limits:
+              memory: 500Mi
+              cpu: 200m
+          envFrom:
+            - configMapRef:
+                name: rails-events-config
 ---
 apiVersion: v1
 kind: Service
