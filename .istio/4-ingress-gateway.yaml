@@ -4,14 +4,14 @@ metadata:
   name: ingress-gateway-configuration
 spec:
   selector:
-    istio: ingressgateway # use Istio default gateway implementation
+    istio: ingressgateway
   servers:
   - port:
       number: 80
       name: http
       protocol: HTTP
     hosts:
-    - "*.railsevents.local"   # Domain name of the external website
+    - "*.railsevents.local"
     - "railsevents.local"
 ---
 kind: VirtualService
@@ -20,15 +20,31 @@ metadata:
   name: rails-events-app-virtual-service
   namespace: default
 spec:
-  hosts:      # which incoming host are we applying the proxy rules to???
-    - "railsevents.local" # Copy the value in the gateway hosts - usually a Domain Name
+  hosts:
+    - "railsevents.local"
   gateways:
     - ingress-gateway-configuration
   http:
     - route:
         - destination:
             host: rails-events-app
-          weight: 100
+            subset: original
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-app-canary-test-virtual-service
+  namespace: default
+spec:
+  hosts:
+    - "*.railsevents.local"
+  gateways:
+    - ingress-gateway-configuration
+  http:
+      - route:
+        - destination:
+            host: rails-events-app
+            subset: experimental
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
@@ -37,3 +53,10 @@ metadata:
   namespace: default
 spec:
   host: rails-events-app
+  subsets:
+    - labels:
+        version: original
+      name: original
+    - labels:
+        version: experimental
+      name: experimental
