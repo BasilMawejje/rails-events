@@ -60,3 +60,6 @@ spec:
     - labels:
         version: experimental
       name: experimental
+  trafficPolicy:
+    outlierDetection:
+      maxEjectionPercent: 100
