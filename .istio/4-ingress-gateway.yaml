@@ -1,0 +1,65 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ingress-gateway-configuration
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*.railsevents.local"
+    - "railsevents.local"
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-app-virtual-service
+  namespace: default
+spec:
+  hosts:
+    - "railsevents.local"
+  gateways:
+    - ingress-gateway-configuration
+  http:
+    - route:
+        - destination:
+            host: rails-events-app
+            subset: original
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-app-canary-test-virtual-service
+  namespace: default
+spec:
+  hosts:
+    - "*.railsevents.local"
+  gateways:
+    - ingress-gateway-configuration
+  http:
+      - route:
+        - destination:
+            host: rails-events-app
+            subset: experimental
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-app-destination-rule
+  namespace: default
+spec:
+  host: rails-events-app
+  subsets:
+    - labels:
+        version: original
+      name: original
+    - labels:
+        version: experimental
+      name: experimental
+  trafficPolicy:
+    outlierDetection:
+      maxEjectionPercent: 100

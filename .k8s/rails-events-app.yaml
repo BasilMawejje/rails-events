@@ -11,6 +11,7 @@ spec:
     metadata:
       labels:
         app: rails-events-app
+        version: original
     spec:
       containers:
         - name: rails-events-app
@@ -25,6 +26,37 @@ spec:
           envFrom:
             - configMapRef:
                 name: rails-events-config
+          imagePullPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-events-app-canary-test
+spec:
+  selector:
+    matchLabels:
+      app: rails-events-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rails-events-app
+        version: experimental
+    spec:
+      containers:
+        - name: rails-events-app
+          image: basilmawejje/rails-events:v1
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 100m
+            limits:
+              memory: 500Mi
+              cpu: 200m
+          envFrom:
+            - configMapRef:
+                name: rails-events-config
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
