@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: terminal
+spec:
+  containers:
+  - name: terminal
+    image: basilmawejje/rails-events:v1
+    resources:
+            requests:
+              memory: 150Mi
+              cpu: 50m
+            limits:
+              memory: 250Mi
+              cpu: 100m
+    envFrom:
+        - configMapRef:
+            name: rails-events-config
