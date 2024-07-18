@@ -1,5 +1,6 @@
 import Map from "./components/Map";
 import Events from "./components/EventList";
+import Header from "./components/Header";
 import type { User } from "./api/User";
 import { useState } from "react";
 
@@ -11,14 +12,17 @@ function App() {
   }
   
  return (
-  <div className="h-screen w-screen grid grid-cols-12">
-    <div className="col-span-6 p-2">
-      <Events onUserClick={handlePanEventOnMap} />
+  <>
+    <Header />
+    <div className="h-screen w-screen grid grid-cols-12">
+      <div className="col-span-6 p-2">
+        <Events onUserClick={handlePanEventOnMap} />
+      </div>
+      <div className="col-span-6">
+        <Map user={user}/>
+      </div>
     </div>
-    <div className="col-span-6">
-      <Map user={user}/>
-    </div>
-  </div>
+  </>
  )
 }
 

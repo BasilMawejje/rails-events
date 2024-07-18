@@ -26,7 +26,6 @@ export default function EventList({ onUserClick }: EventListProps) {
   
   return (
     <div>
-      <h1>What's happening? What's up?</h1>
       {users.map( user => 
         <div key={user.id}>
           <ul>
