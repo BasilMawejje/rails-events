@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import type { User } from "../api/User";
 
-export default function EventList() {
+interface EventListProps {
+  onUserClick: (user: User) => void;
+}
+
+export default function EventList({ onUserClick }: EventListProps) {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
@@ -26,7 +30,12 @@ export default function EventList() {
       {users.map( user => 
         <div key={user.id}>
           <ul>
-            <li>{user.name}</li>
+            <li>
+              <a className="text-blue-500 hover:text-blue-800" 
+                onClick={() => onUserClick(user)} >
+                {user.name}
+              </a>
+            </li>
             <li>{user.address.geo.lat}</li>
             <li>{user.address.geo.lng}</li>
           </ul>
