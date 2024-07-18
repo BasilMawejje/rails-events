@@ -14,7 +14,7 @@ export default function EventList() {
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
+      .then((data: User[]) => {
         setUsers(data);
       })
       .catch((error) => console.log(error));
