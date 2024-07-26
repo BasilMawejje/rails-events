@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  website:
+      build: .
+      ports:
+        - '5173:5173'
+      volumes:
+        - .:/rails-events-frontend
+        - node_modules:/Users/basil/Documents/rails-events/rails-events-frontend/node_modules
+volumes:
+  node_modules:
