@@ -58,6 +58,33 @@ spec:
                 name: rails-events-config
           imagePullPolicy: Always
 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rails-events-frontend
+spec:
+  selector:
+    matchLabels:
+      app: rails-events-frontend
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rails-events-frontend
+        version: frontend
+    spec:
+      containers:
+        - name: rails-events-frontend
+          image: basilmawejje/rails-events-frontend:v1
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 100m
+            limits:
+              memory: 500Mi
+              cpu: 200m
+          imagePullPolicy: Always
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -69,4 +96,17 @@ spec:
     - name: http
       port: 80
       targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails-events-frontend
+spec:
+  selector:
+    app: rails-events-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5173
   type: LoadBalancer
