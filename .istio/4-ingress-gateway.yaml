@@ -11,8 +11,9 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*.railsevents.local"
     - "railsevents.local"
+    - "developer.railsevents.local"
+    - "frontend.railsevents.local"
 ---
 kind: VirtualService
 apiVersion: networking.istio.io/v1alpha3
@@ -37,7 +38,7 @@ metadata:
   namespace: default
 spec:
   hosts:
-    - "*.railsevents.local"
+    - "developer.railsevents.local"
   gateways:
     - ingress-gateway-configuration
   http:
@@ -45,6 +46,22 @@ spec:
         - destination:
             host: rails-events-app
             subset: experimental
+---
+kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-frontend-virtual-service
+  namespace: default
+spec:
+  hosts:
+    - "frontend.railsevents.local"
+  gateways:
+    - ingress-gateway-configuration
+  http:
+      - route:
+        - destination:
+            host: rails-events-frontend
+            subset: frontend
 ---
 kind: DestinationRule
 apiVersion: networking.istio.io/v1alpha3
@@ -60,6 +77,21 @@ spec:
     - labels:
         version: experimental
       name: experimental
+  trafficPolicy:
+    outlierDetection:
+      maxEjectionPercent: 100
+---
+kind: DestinationRule
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: rails-events-frontend-destination-rule
+  namespace: default
+spec:
+  host: rails-events-frontend
+  subsets:
+    - labels:
+        version: frontend
+      name: frontend
   trafficPolicy:
     outlierDetection:
       maxEjectionPercent: 100
