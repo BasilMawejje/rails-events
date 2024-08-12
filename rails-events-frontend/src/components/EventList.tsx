@@ -13,23 +13,23 @@ export default function EventList({ onUserClick }: EventListProps) {
     getUsers(url)
   }, [])
   
-  // Alternative way to write promises in an easier way using async await
-  const getUsers = async (url: string) => {
-    const res = await fetch(url);
-    const data: User[] = await res.json();
-    setUsers(data);
-  }
-
+  // // Alternative way to write promises in an easier way using async await
   // const getUsers = async (url: string) => {
-  //   await fetch(url)
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((data: User[]) => {
-  //       setUsers(data);
-  //     })
-  //     .catch((error) => console.log(error));
+  //   const res = await fetch(url);
+  //   const data: User[] = await res.json();
+  //   setUsers(data);
   // }
+
+  const getUsers = async (url: string) => {
+    await fetch(url)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data: User[]) => {
+        setUsers(data);
+      })
+      .catch((error) => console.log(error));
+  }
   
   return (
     <div>
