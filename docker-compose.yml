@@ -44,6 +44,16 @@ services:
     environment:
       REDIS_URL: redis://redis:6379/0
 
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+      - "4510-4559:4510-4559"
+    environment:
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
 volumes:
   redis:
   postgres:
