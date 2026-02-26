@@ -27,3 +27,20 @@
 /config/master.key
 
 .env
+
+# Local tool directories
+.terraform/
+.terraform.lock.hcl  # Optional: some teams commit this to lock versions, but usually safe to ignore if you use version constraints in your code
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Variables and Secrets
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+
+# Plan files (don't commit binary plans)
+*.tfplan
