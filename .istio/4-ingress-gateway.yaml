@@ -105,7 +105,7 @@ metadata:
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip # Points directly to Istio Pods
-    alb.ingress.kubernetes.io/healthcheck-path: /health/ready
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz/ready
     alb.ingress.kubernetes.io/healthcheck-port: "15021"
 spec:
   ingressClassName: alb
@@ -116,6 +116,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: istio-ingressgateway # # service name used in the creation of the ALB in terraform/istio.tf
+                name: istio-ingressgateway # service name used in the creation of the ALB in terraform/istio.tf
                 port:
                   number: 80
