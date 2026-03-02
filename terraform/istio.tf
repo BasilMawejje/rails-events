@@ -2,6 +2,7 @@ resource "helm_release" "istio_base" {
   name             = "istio-base"
   repository       = "https://istio-release.storage.googleapis.com/charts"
   chart            = "base"
+  version          = var.istio_version
   namespace        = "istio-system"
   create_namespace = true
 }
@@ -10,6 +11,7 @@ resource "helm_release" "istiod" {
   name       = "istiod"
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "istiod"
+  version    = var.istio_version
   namespace  = "istio-system"
   depends_on = [helm_release.istio_base]
   set        = { name = "meshConfig.accessLogFile", value = "/dev/stdout" }
@@ -19,6 +21,7 @@ resource "helm_release" "istio_ingress" {
   name       = "istio-ingressgateway" # service name used in the creation of the ALB in .istio/4-ingress-gateway.yaml
   repository = "https://istio-release.storage.googleapis.com/charts"
   chart      = "gateway"
+  version    = var.istio_version
   namespace  = "istio-system"
   depends_on = [helm_release.istiod]
   set        = { name = "service.type", value = "ClusterIP" }
