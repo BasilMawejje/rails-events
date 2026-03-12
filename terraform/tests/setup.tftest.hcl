@@ -100,4 +100,21 @@ run "verify_istio_logic" {
     condition     = can(regex("kind: Ingress", data.kubectl_file_documents.istio_manifests.manifests["ingress"]))
     error_message = "The ingress manifest does not contain the expected 'kind: Ingress' definition."
   }
+
+  assert {
+    condition     = can(regex("kind: Ingress", file("${path.module}/../.istio/4-ingress-gateway.yaml")))
+    error_message = "CRITICAL: The actual YAML file on disk is missing 'kind: Ingress'!"
+  }
+
+  assert {
+    condition     = can(regex("ingressClassName: alb", file("${path.module}/../.istio/4-ingress-gateway.yaml")))
+    error_message = "CRITICAL: The actual YAML file is missing the 'alb' ingress class!"
+  }
+
+  # --- MOCK LOGIC VALIDATION ---
+  # This ensures your 'override_data' map is set up correctly for the 'for_each'
+  assert {
+    condition     = length(data.kubectl_file_documents.istio_manifests.manifests) == 7
+    error_message = "Mock Error: The override_data map doesn't have 7 items."
+  }
 }
