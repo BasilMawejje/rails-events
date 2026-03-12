@@ -10,7 +10,12 @@ resource "helm_release" "istiod" {
   chart      = "${path.module}/charts/istiod"
   namespace  = "istio-system"
   depends_on = [helm_release.istio_base]
-  set        = { name = "meshConfig.accessLogFile", value = "/dev/stdout" }
+  set = [
+    {
+      name  = "meshConfig.accessLogFile"
+      value = "/dev/stdout"
+    }
+  ]
 }
 
 resource "helm_release" "istio_ingress" {
@@ -18,12 +23,16 @@ resource "helm_release" "istio_ingress" {
   chart      = "${path.module}/charts/gateway"
   namespace  = "istio-system"
   depends_on = [helm_release.istiod]
-  set        = { name = "service.type", value = "ClusterIP" }
+  set = [
+    {
+      name = "service.type", value = "ClusterIP"
+    }
+  ]
 }
 
 # Apply your YAML file
 data "kubectl_file_documents" "istio_manifests" {
-  content = file("${path.module}/../.k8s/4-ingress-gateway.yaml")
+  content = file("${path.module}/../.istio/4-ingress-gateway.yaml")
 }
 
 resource "kubectl_manifest" "istio_gateway_config" {
