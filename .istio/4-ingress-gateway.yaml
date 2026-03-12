@@ -95,3 +95,27 @@ spec:
   trafficPolicy:
     outlierDetection:
       maxEjectionPercent: 100
+---
+# Bridge to ALB in production environment. Using the Istio G/w will create a Classic LB which is outdated
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: istio-ingress-alb
+  namespace: istio-system
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip # Points directly to Istio Pods
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz/ready
+    alb.ingress.kubernetes.io/healthcheck-port: "15021"
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: istio-ingressgateway # service name used in the creation of the ALB in terraform/istio.tf
+                port:
+                  number: 80
