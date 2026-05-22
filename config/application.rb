@@ -4,6 +4,8 @@ require_relative 'boot'
 
 require 'rails/all'
 
+require_relative "../app/middleware/fast_cart_middleware"
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -17,5 +19,8 @@ module RailsEvents
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Insert our fast cart middleware right after Devise's Warden
+    config.middleware.insert_after Warden::Manager, ::FastCartMiddleware
   end
 end
